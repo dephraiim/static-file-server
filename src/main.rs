@@ -4,14 +4,22 @@ use std::env;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    let file_directory = "./static";
+    let args: Vec<String> = env::args().collect();
+    if args.len() < 2 {
+        println!("Usage: cargo run -- <directory>");
+        return Ok(());
+    }
 
-    let port = 8000;
+    let file_directory = args[1].clone();
+    let port = 3000;
 
-    println!("Serving files at http://localhost:{}", port);
+    println!(
+        "Serving files from {} at http://localhost:{}",
+        file_directory, port
+    );
 
     HttpServer::new(move || {
-        App::new().service(Files::new("/", file_directory).show_files_listing())
+        App::new().service(Files::new("/", &file_directory).show_files_listing())
     })
     .bind(("0.0.0.0", port))?
     .run()
