@@ -1001,8 +1001,8 @@ dependencies = [
 ]
 
 [[package]]
-name = "static-file-server"
-version = "0.1.0"
+name = "static-files-server"
+version = "0.0.1"
 dependencies = [
  "actix-files",
  "actix-web",
