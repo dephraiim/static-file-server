@@ -1,6 +1,6 @@
 [package]
 name = "static-files-server"
-version = "0.0.1"
+version = "0.0.2"
 edition = "2021"
 description = "A simple static files server"
 license = "MIT"
