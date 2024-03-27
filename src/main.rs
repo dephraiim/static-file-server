@@ -1,17 +1,22 @@
 use actix_files::Files;
 use actix_web::{App, HttpServer};
-use std::env;
+use clap::Parser;
+
+#[derive(Parser, Debug)]
+#[command(version, about, long_about = None)]
+struct Args {
+    #[arg(short, long)]
+    directory: String,
+
+    #[arg(short, long, default_value_t = 3000)]
+    port: u16,
+}
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    let args: Vec<String> = env::args().collect();
-    if args.len() < 2 {
-        println!("Usage: cargo run -- <directory>");
-        return Ok(());
-    }
-
-    let file_directory = args[1].clone();
-    let port = 3000;
+    let args = Args::parse();
+    let file_directory = args.directory;
+    let port = args.port;
 
     println!(
         "Serving files from {} at http://localhost:{}",
